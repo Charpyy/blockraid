@@ -1,0 +1,5 @@
+{
+	"variants": {
+		"normal": { "model": "raidblocks:raid_block_concrete_pillar_side" }
+	}
+}

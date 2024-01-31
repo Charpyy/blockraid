@@ -1,0 +1,6 @@
+{
+	"parent": "item/Generated",
+	"textures": {
+		"layer0": "raidblocks:items/raid_item"
+	}
+}
