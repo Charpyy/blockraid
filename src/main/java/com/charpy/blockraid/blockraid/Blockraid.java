@@ -1,5 +1,7 @@
 package com.charpy.blockraid.blockraid;
 
+import club.minnced.discord.rpc.DiscordRPC;
+import club.minnced.discord.rpc.DiscordRichPresence;
 import com.charpy.blockraid.blockraid.proxy.CommonProxy;
 import com.charpy.blockraid.blockraid.util.Reference;
 import net.dv8tion.jda.api.JDABuilder;
@@ -16,7 +18,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-
 import javax.security.auth.login.LoginException;
 
 @Mod(modid =  Reference.MOD_ID, name = Reference.NAME, version = Reference.VERSION)
@@ -37,13 +38,17 @@ public class Blockraid {
 
     @Mod.EventHandler
     public static void init(FMLInitializationEvent event) {
-        try {
-            JDABuilder.createDefault("YOUR_DISCORD_BOT_TOKEN")
-                    .setActivity(Activity.playing("Minecraft"))
-                    .build();
-        } catch (LoginException e) {
-            e.printStackTrace();
-        }
+        DiscordRPC lib = DiscordRPC.INSTANCE;
+        String applicationId = "1193252034548355162";
+
+        DiscordRichPresence presence = new DiscordRichPresence();
+        presence.startTimestamp = System.currentTimeMillis() / 1000;
+        presence.details = "WW2 ChapServer";
+        presence.largeImageKey = "minecraft";
+        presence.largeImageText = "Minecraft";
+
+        lib.Discord_Initialize(applicationId, null, false, null);
+        lib.Discord_UpdatePresence(presence);
     }
 
     @Mod.EventHandler
