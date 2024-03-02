@@ -1,28 +1,19 @@
 package com.charpy.blockraid.blockraid;
 
-import club.minnced.discord.rpc.DiscordRPC;
-import club.minnced.discord.rpc.DiscordRichPresence;
 import com.charpy.blockraid.blockraid.proxy.CommonProxy;
 import com.charpy.blockraid.blockraid.util.Reference;
-import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.Activity;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraftforge.event.RegistryEvent;
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import javax.security.auth.login.LoginException;
 
 @Mod(modid =  Reference.MOD_ID, name = Reference.NAME, version = Reference.VERSION)
 
 public class Blockraid {
+
 
     @Mod.Instance
     public static Blockraid instance;
@@ -38,19 +29,16 @@ public class Blockraid {
 
     @Mod.EventHandler
     public static void init(FMLInitializationEvent event) {
-        DiscordRPC lib = DiscordRPC.INSTANCE;
-        String applicationId = "1193252034548355162";
-
+        DiscordRPC.discordInitialize("1193252034548355162", null, false);
         DiscordRichPresence presence = new DiscordRichPresence();
         presence.startTimestamp = System.currentTimeMillis() / 1000;
-        presence.details = "WW2 ChapServer";
-        presence.largeImageKey = "minecraft";
-        presence.largeImageText = "Minecraft";
-
-        lib.Discord_Initialize(applicationId, null, false, null);
-        lib.Discord_UpdatePresence(presence);
+        presence.details = "Making RPC";
+        presence.state = "Working on :)";
+        presence.largeImageKey = "ww2";
+        presence.largeImageText = "ez";
+        DiscordRPC.discordUpdatePresence(presence);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> DiscordRPC.discordShutdown()));
     }
-
     @Mod.EventHandler
     public static void PostInit(FMLPostInitializationEvent event) {
 
